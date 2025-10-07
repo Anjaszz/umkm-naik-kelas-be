@@ -10,6 +10,7 @@ const buyerRoutes = require('./routes/buyerRoutes');
 const sellerRoutes = require('./routes/sellerRoutes');
 const productRoutes = require('./routes/productRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const shareRoutes = require('./routes/shareRoutes');
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use('/api/buyer', buyerRoutes);
 app.use('/api/seller', sellerRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/share', shareRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
