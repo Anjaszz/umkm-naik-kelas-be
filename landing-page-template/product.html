@@ -1,312 +1,301 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">UMKM Marketplace - Product</title>
 
     <!-- Open Graph for social media preview -->
-    <meta
-      property="og:title"
-      content="Produk UMKM Marketplace"
-    />
-    <meta
-      property="og:description"
-      content="Lihat produk menarik dari UMKM lokal"
-    />
-    <meta
-      property="og:image"
-      content=""
-    />
-    <meta
-      property="og:url"
-      content=""
-    />
-    <meta
-      property="og:type"
-      content="product"
-    />
+    <meta property="og:title" content="Produk UMKM Marketplace">
+    <meta property="og:description" content="Lihat produk menarik dari UMKM lokal">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="product">
 
     <!-- Twitter Card -->
-    <meta
-      name="twitter:card"
-      content="summary_large_image"
-    />
-    <meta
-      name="twitter:title"
-      content="Produk UMKM Marketplace"
-    />
-    <meta
-      name="twitter:description"
-      content="Lihat produk menarik dari UMKM lokal"
-    />
-    <meta
-      name="twitter:image"
-      content=""
-    />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Produk UMKM Marketplace">
+    <meta name="twitter:description" content="Lihat produk menarik dari UMKM lokal">
+    <meta name="twitter:image" content="">
 
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-      }
-
-      .container {
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        max-width: 500px;
-        width: 100%;
-        padding: 40px;
-        text-align: center;
-      }
-
-      .logo {
-        font-size: 48px;
-        margin-bottom: 20px;
-      }
-
-      h1 {
-        color: #333;
-        font-size: 24px;
-        margin-bottom: 10px;
-      }
-
-      .product-info {
-        margin: 30px 0;
-        padding: 20px;
-        background: #f8f9fa;
-        border-radius: 10px;
-      }
-
-      .product-image {
-        width: 100%;
-        max-width: 300px;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 10px;
-        margin-bottom: 15px;
-      }
-
-      .product-name {
-        font-size: 20px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 10px;
-      }
-
-      .product-price {
-        font-size: 24px;
-        color: #667eea;
-        font-weight: bold;
-        margin-bottom: 10px;
-      }
-
-      .product-seller {
-        font-size: 14px;
-        color: #666;
-      }
-
-      .loader {
-        display: inline-block;
-        width: 40px;
-        height: 40px;
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #667eea;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin: 20px 0;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        100% {
-          transform: rotate(360deg);
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
-      }
 
-      .message {
-        color: #666;
-        margin: 20px 0;
-        font-size: 16px;
-      }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
 
-      .btn-download {
-        display: inline-block;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 15px 40px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: bold;
-        margin-top: 20px;
-        transition: transform 0.3s;
-      }
+        .logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
 
-      .btn-download:hover {
-        transform: translateY(-2px);
-      }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
 
-      .play-store-badge {
-        height: 60px;
-        margin: 20px 0;
-      }
+        .product-info {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
 
-      .footer {
-        margin-top: 30px;
-        font-size: 12px;
-        color: #999;
-      }
+        .product-image {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-seller {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px 0;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .message {
+            color: #666;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+
+        .btn-download {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+        }
+
+        .play-store-badge {
+            height: 60px;
+            margin: 20px 0;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            background: #ffe6e6;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <div class="logo">🛒</div>
-      <h1>UMKM Marketplace</h1>
+        <div class="logo">🛒</div>
+        <h1>UMKM Marketplace</h1>
 
-      <div id="loading-state">
-        <div class="loader"></div>
-        <p class="message">Membuka di aplikasi...</p>
-      </div>
+        <div id="loading-state">
+            <div class="loader"></div>
+            <p class="message">Memuat produk...</p>
+        </div>
 
-      <div
-        id="product-info"
-        class="product-info"
-        style="display: none"
-      >
-        <img
-          id="product-image"
-          class="product-image"
-          src=""
-          alt="Product"
-        />
-        <div
-          id="product-name"
-          class="product-name"
-        ></div>
-        <div
-          id="product-price"
-          class="product-price"
-        ></div>
-        <div
-          id="product-seller"
-          class="product-seller"
-        ></div>
-      </div>
+        <div id="product-info" class="product-info" style="display: none;">
+            <img id="product-image" class="product-image" src="" alt="Product">
+            <div id="product-name" class="product-name"></div>
+            <div id="product-price" class="product-price"></div>
+            <div id="product-seller" class="product-seller"></div>
+        </div>
 
-      <div
-        id="fallback-state"
-        style="display: none"
-      >
-        <p class="message">Aplikasi belum terinstall?</p>
-        <a
-          href="https://play.google.com/store/apps/details?id=com.umkm.marketplace"
-          class="btn-download"
-        >
-          Download Aplikasi
-        </a>
-        <br />
-        <img
-          src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-          alt="Get it on Google Play"
-          class="play-store-badge"
-        />
-      </div>
+        <div id="error-state" style="display: none;">
+            <p class="error-message" id="error-message"></p>
+        </div>
 
-      <div class="footer">
-        <p>&copy; 2025 UMKM Marketplace</p>
-      </div>
+        <div id="fallback-state" style="display: none;">
+            <p class="message">Lihat di aplikasi untuk detail lengkap!</p>
+            <a href="https://play.google.com/store/apps/details?id=com.umkm.marketplace" class="btn-download">
+                Download Aplikasi
+            </a>
+            <br>
+            <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                 alt="Get it on Google Play"
+                 class="play-store-badge">
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 UMKM Marketplace</p>
+        </div>
     </div>
 
     <script>
-      // IMPORTANT: Update this to your backend API URL
-      const API_BASE_URL = 'http://192.168.1.111:5000/api';
+        // IMPORTANT: Update this to your backend API URL
+        // For production, use your deployed backend URL
+        const API_BASE_URL = 'http://192.168.1.111:5000/api';
 
-      // Get product ID from URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const productId = urlParams.get('id') || window.location.pathname.split('/').pop();
+        // Get product ID from URL path or query parameter
+        const path = window.location.pathname;
+        const urlParams = new URLSearchParams(window.location.search);
 
-      // Fetch product data from backend
-      async function loadProductData() {
-        try {
-          const response = await fetch(`${API_BASE_URL}/share/product/${productId}`);
-          const result = await response.json();
-
-          if (result.success) {
-            const product = result.data.product;
-
-            // Update meta tags
-            document.getElementById('page-title').textContent = product.nama;
-            document.querySelector('meta[property="og:title"]').content = product.nama;
-            document.querySelector('meta[property="og:description"]').content = product.deskripsi;
-            document.querySelector('meta[property="og:image"]').content = product.foto;
-
-            // Update product info
-            document.getElementById('product-image').src = product.foto;
-            document.getElementById('product-name').textContent = product.nama;
-            document.getElementById('product-price').textContent = `Rp ${product.harga.toLocaleString('id-ID')}`;
-            document.getElementById('product-seller').textContent = `Dari: ${product.seller.nama}`;
-
-            // Show product info
-            document.getElementById('product-info').style.display = 'block';
-
-            // Try to open app
-            tryOpenApp(result.data.deepLink);
-          }
-        } catch (error) {
-          console.error('Error loading product:', error);
-          // Show fallback even if API fails
-          showFallback();
+        // Extract product ID from /product/ID or ?id=ID
+        let productId = null;
+        if (path.includes('/product/')) {
+            productId = path.split('/product/')[1].split('?')[0];
+        } else {
+            productId = urlParams.get('id');
         }
-      }
 
-      function tryOpenApp(deepLink) {
-        // Try custom scheme first
-        window.location.href = deepLink;
+        console.log('Product ID:', productId);
+        console.log('API URL:', API_BASE_URL);
 
-        // Show fallback after 2.5 seconds if still on page
-        setTimeout(() => {
-          document.getElementById('loading-state').style.display = 'none';
-          document.getElementById('fallback-state').style.display = 'block';
-        }, 2500);
-      }
+        // Fetch product data from backend
+        async function loadProductData() {
+            if (!productId) {
+                showError('Product ID tidak ditemukan di URL');
+                return;
+            }
 
-      function showFallback() {
-        document.getElementById('loading-state').style.display = 'none';
-        document.getElementById('fallback-state').style.display = 'block';
-      }
+            try {
+                console.log('Fetching:', `${API_BASE_URL}/share/product/${productId}`);
 
-      // Start loading
-      if (productId) {
-        loadProductData();
-      } else {
-        document.querySelector('.message').textContent = 'Produk tidak ditemukan';
-        showFallback();
-      }
+                const response = await fetch(`${API_BASE_URL}/share/product/${productId}`);
+                const result = await response.json();
 
-      // Handle visibility change (user switched apps)
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-          // User left the page (app opened successfully)
-          console.log('App opened successfully');
+                console.log('API Response:', result);
+
+                if (result.success && result.data) {
+                    const product = result.data.product;
+
+                    // Update meta tags for social sharing
+                    document.getElementById('page-title').textContent = product.nama;
+                    document.querySelector('meta[property="og:title"]').content = product.nama;
+                    document.querySelector('meta[property="og:description"]').content = product.deskripsi;
+                    document.querySelector('meta[property="og:image"]').content = product.foto;
+
+                    // Update product display
+                    document.getElementById('product-image').src = product.foto;
+                    document.getElementById('product-name').textContent = product.nama;
+                    document.getElementById('product-price').textContent =
+                        `Rp ${product.harga.toLocaleString('id-ID')}`;
+                    document.getElementById('product-seller').textContent =
+                        `Dari: ${product.seller.nama}`;
+
+                    // Hide loading, show product
+                    document.getElementById('loading-state').style.display = 'none';
+                    document.getElementById('product-info').style.display = 'block';
+
+                    // Try to open app
+                    tryOpenApp(result.data.deepLink);
+                } else {
+                    showError('Produk tidak ditemukan');
+                }
+            } catch (error) {
+                console.error('Error loading product:', error);
+                showError('Gagal memuat produk. Pastikan backend API berjalan.');
+                // Show fallback even if API fails
+                showFallback();
+            }
         }
-      });
+
+        function tryOpenApp(deepLink) {
+            console.log('Trying to open app with:', deepLink);
+
+            // Try custom scheme
+            window.location.href = deepLink;
+
+            // Show fallback after 2.5 seconds if still on page
+            setTimeout(() => {
+                showFallback();
+            }, 2500);
+        }
+
+        function showFallback() {
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('fallback-state').style.display = 'block';
+        }
+
+        function showError(message) {
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('error-state').style.display = 'block';
+            document.getElementById('error-message').textContent = message;
+            // Also show fallback
+            setTimeout(() => {
+                document.getElementById('fallback-state').style.display = 'block';
+            }, 2000);
+        }
+
+        // Start loading
+        if (productId) {
+            loadProductData();
+        } else {
+            showError('Product ID tidak ditemukan di URL. Format: /product/ID atau ?id=ID');
+        }
+
+        // Handle visibility change (user switched apps)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                console.log('App opened successfully');
+            }
+        });
     </script>
-  </body>
+</body>
 </html>

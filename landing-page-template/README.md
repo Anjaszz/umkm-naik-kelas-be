@@ -5,7 +5,8 @@ Template landing page sederhana untuk deep linking app Android.
 ## Files
 
 - `product.html` - Landing page untuk product detail
-- `netlify.toml` - Konfigurasi untuk deploy ke Netlify
+- `vercel.json` - Konfigurasi untuk deploy ke Vercel
+- `netlify.toml` - Alternatif config untuk Netlify (jika ingin pakai Netlify)
 
 ## Setup
 
@@ -16,7 +17,17 @@ Edit `product.html` line 182:
 const API_BASE_URL = 'http://192.168.1.111:5000/api';
 ```
 
-Ganti dengan URL backend API Anda.
+Ganti dengan URL backend API Anda (production).
+
+**Untuk development/testing lokal:**
+```javascript
+const API_BASE_URL = 'http://192.168.1.111:5000/api'; // Local network
+```
+
+**Untuk production (setelah deploy backend):**
+```javascript
+const API_BASE_URL = 'https://api.yourdomain.com/api'; // Production
+```
 
 ### 2. Update Play Store Package Name
 
@@ -27,45 +38,82 @@ Edit `product.html` line 157:
 
 Ganti `com.umkm.marketplace` dengan package name app Anda.
 
-## Deploy ke Netlify
+## Deploy ke Vercel (Recommended) 🚀
 
-### Option 1: Drag & Drop (Paling Mudah)
+### Option 1: Vercel CLI (Tercepat)
 
-1. Buka https://app.netlify.com/drop
-2. Drag folder `landing-page-template` ke browser
-3. Selesai! Domain gratis: `random-name.netlify.app`
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy
+cd landing-page-template
+vercel
+
+# Follow prompts:
+# - Login/Signup
+# - Project name: umkm-marketplace
+# - Deploy!
+
+# Production deploy
+vercel --prod
+```
+
+Domain gratis: `your-project.vercel.app`
 
 ### Option 2: GitHub + Auto Deploy
 
 1. Push folder ini ke GitHub repo
-2. Login ke https://netlify.com
-3. Klik "New site from Git"
-4. Pilih repo Anda
-5. Deploy! Auto deploy setiap push
+2. Login ke https://vercel.com
+3. Klik "Add New Project"
+4. Import dari GitHub
+5. Deploy! Auto deploy setiap push ke main branch
 
-### Option 3: Netlify CLI
+### Option 3: Drag & Drop
 
-```bash
-npm install -g netlify-cli
-cd landing-page-template
-netlify deploy --prod
-```
+1. Buka https://vercel.com/new
+2. Drag folder `landing-page-template` ke browser
+3. Deploy!
+
+## Keuntungan Vercel
+
+✅ **Deploy super cepat** (< 1 menit)
+✅ **CDN global** otomatis
+✅ **SSL gratis** otomatis
+✅ **Auto deploy** dari Git
+✅ **Zero config** - langsung jalan
+✅ **Free tier generous** - unlimited projects
+✅ **Custom domain** gratis
 
 ## Custom Domain
 
-Setelah deploy, bisa setup custom domain di Netlify:
-1. Dashboard → Domain settings → Add custom domain
-2. Input domain Anda (contoh: umkm-marketplace.com)
-3. Update DNS sesuai instruksi Netlify
-4. SSL otomatis aktif
+Setelah deploy, setup custom domain:
+
+1. Dashboard → Project Settings → Domains
+2. Add Domain → Input domain Anda (contoh: `umkm-marketplace.com`)
+3. Update DNS sesuai instruksi:
+   ```
+   Type: A
+   Name: @
+   Value: 76.76.21.21
+
+   Type: CNAME
+   Name: www
+   Value: cname.vercel-dns.com
+   ```
+4. SSL otomatis aktif dalam beberapa menit
 
 ## Test Local
 
-Bisa test di local dengan:
 ```bash
+# Simple HTTP server
 npx serve .
-# atau
+
+# Atau Python
 python -m http.server 8000
+
+# Atau Vercel dev
+vercel dev
 ```
 
 Buka: http://localhost:8000/product.html?id=PRODUCT_ID
@@ -74,24 +122,51 @@ Buka: http://localhost:8000/product.html?id=PRODUCT_ID
 
 Setelah deploy, URL format:
 ```
-https://your-site.netlify.app/product/PRODUCT_ID
-https://your-site.netlify.app/product?id=PRODUCT_ID
+https://your-project.vercel.app/product/PRODUCT_ID
+https://your-project.vercel.app/product?id=PRODUCT_ID
 ```
 
-Keduanya akan work karena redirect di `netlify.toml`
+Keduanya akan work karena rewrite di `vercel.json`
 
 ## Update Backend .env
 
 Setelah deploy, update `.env` di backend:
 ```env
-WEB_DOMAIN=https://your-site.netlify.app
+WEB_DOMAIN=https://your-project.vercel.app
+# atau
+WEB_DOMAIN=https://umkm-marketplace.com
 ```
 
 ## Alternatif Hosting Gratis
 
-1. **Vercel** - https://vercel.com
-2. **GitHub Pages** - https://pages.github.com
-3. **Cloudflare Pages** - https://pages.cloudflare.com
-4. **Surge** - https://surge.sh
+1. ✅ **Vercel** - https://vercel.com (Recommended)
+2. **Netlify** - https://netlify.com
+3. **GitHub Pages** - https://pages.github.com
+4. **Cloudflare Pages** - https://pages.cloudflare.com
 
-Semua support static HTML dan gratis dengan SSL.
+Vercel recommended karena:
+- Paling cepat deploy
+- Zero configuration
+- CDN global terbaik
+- Free tier paling generous
+
+## Troubleshooting
+
+### API CORS Error
+Pastikan backend sudah enable CORS untuk domain Vercel:
+```javascript
+// server.js
+app.use(cors({
+  origin: '*', // atau specific domain
+}));
+```
+
+### Deep Link Tidak Work
+1. Pastikan AndroidManifest.xml sudah benar
+2. Test dengan ADB command
+3. Deep link hanya work di device fisik, tidak di emulator
+
+### Landing Page Blank
+1. Buka browser console (F12) untuk cek error
+2. Pastikan `API_BASE_URL` bisa diakses
+3. Test API endpoint langsung di browser

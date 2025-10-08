@@ -66,9 +66,23 @@ const validateForgotPassword = [
   }
 ];
 
+const validateVerifyOTP = [
+  body('email').isEmail().withMessage('Email tidak valid'),
+  body('otp').isLength({ min: 4, max: 4 }).withMessage('OTP harus 4 digit'),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: errors.array()[0].msg
+      });
+    }
+    next();
+  }
+];
+
 const validateResetPassword = [
   body('email').isEmail().withMessage('Email tidak valid'),
-  body('otp').isLength({ min: 6, max: 6 }).withMessage('OTP harus 6 digit'),
   body('newPassword').isLength({ min: 6 }).withMessage('Password minimal 6 karakter'),
   (req, res, next) => {
     const errors = validationResult(req);
@@ -87,5 +101,6 @@ module.exports = {
   validateRegisterSeller,
   validateLogin,
   validateForgotPassword,
+  validateVerifyOTP,
   validateResetPassword
 };

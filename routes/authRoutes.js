@@ -4,6 +4,7 @@ const {
   registerBuyer,
   registerSeller,
   forgotPassword,
+  verifyOTP,
   resetPassword,
   login,
   getMe,
@@ -16,6 +17,7 @@ const {
   validateRegisterSeller,
   validateLogin,
   validateForgotPassword,
+  validateVerifyOTP,
   validateResetPassword
 } = require('../validators/authValidator');
 
@@ -23,6 +25,7 @@ const {
 router.post('/register/buyer', validateRegisterBuyer, registerBuyer);
 router.post('/register/seller', uploadSingle, validateRegisterSeller, registerSeller);
 router.post('/forgot-password', validateForgotPassword, forgotPassword);
+router.post('/verify-otp', validateVerifyOTP, verifyOTP);
 router.post('/reset-password', validateResetPassword, resetPassword);
 router.post('/login', validateLogin, login);
 

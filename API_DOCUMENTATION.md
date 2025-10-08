@@ -342,18 +342,17 @@ Mengirim kode OTP ke email untuk reset password.
 
 ---
 
-### 5. Reset Password
+### 5. Verify OTP
 
-Reset password menggunakan OTP yang dikirim ke email.
+Memverifikasi OTP yang dikirim ke email. Endpoint ini harus dipanggil setelah forgot-password dan sebelum reset-password.
 
-**Endpoint:** `POST /auth/reset-password`
+**Endpoint:** `POST /auth/verify-otp`
 
 **Request Body:**
 ```json
 {
   "email": "john@example.com",
-  "otp": "123456",
-  "newPassword": "newpassword123"
+  "otp": "1234"
 }
 ```
 
@@ -361,7 +360,10 @@ Reset password menggunakan OTP yang dikirim ke email.
 ```json
 {
   "success": true,
-  "message": "Password berhasil direset. Silakan login dengan password baru"
+  "message": "OTP valid. Silakan buat password baru",
+  "data": {
+    "email": "john@example.com"
+  }
 }
 ```
 
@@ -391,7 +393,61 @@ Reset password menggunakan OTP yang dikirim ke email.
 ```json
 {
   "success": false,
-  "message": "OTP harus 6 digit"
+  "message": "OTP harus 4 digit"
+}
+```
+
+---
+
+### 6. Reset Password
+
+Reset password setelah OTP berhasil diverifikasi. Endpoint ini hanya bisa dipanggil setelah verify-otp berhasil.
+
+**Endpoint:** `POST /auth/reset-password`
+
+**Request Body:**
+```json
+{
+  "email": "john@example.com",
+  "newPassword": "newpassword123"
+}
+```
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "message": "Password berhasil direset. Silakan login dengan password baru"
+}
+```
+
+**Error Response (400):**
+```json
+{
+  "success": false,
+  "message": "Silakan verifikasi OTP terlebih dahulu"
+}
+```
+```json
+{
+  "success": false,
+  "message": "OTP sudah expired. Silakan request OTP baru"
+}
+```
+
+**Error Response (404):**
+```json
+{
+  "success": false,
+  "message": "User tidak ditemukan"
+}
+```
+
+**Validation Errors:**
+```json
+{
+  "success": false,
+  "message": "Email tidak valid"
 }
 ```
 ```json
@@ -403,7 +459,7 @@ Reset password menggunakan OTP yang dikirim ke email.
 
 ---
 
-### 6. Get Current User
+### 7. Get Current User
 
 Mendapatkan informasi user yang sedang login (Protected).
 
@@ -464,7 +520,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ---
 
-### 7. Logout
+### 8. Logout
 
 Logout user (Protected).
 
@@ -503,8 +559,14 @@ Authorization: Bearer <your_jwt_token>
 
 ### OTP Configuration
 - OTP berlaku selama 5 menit (konfigurasi di `.env`: `OTP_EXPIRE_MINUTES=5`)
-- OTP terdiri dari 6 digit angka
+- OTP terdiri dari 4 digit angka
 - OTP hanya digunakan untuk reset password, tidak untuk registrasi
+
+### Reset Password Flow
+Flow reset password terdiri dari 3 tahap:
+1. **Forgot Password** (`POST /auth/forgot-password`) - Mengirim OTP ke email
+2. **Verify OTP** (`POST /auth/verify-otp`) - Memverifikasi OTP yang diterima
+3. **Reset Password** (`POST /auth/reset-password`) - Membuat password baru setelah OTP valid
 
 ### File Upload
 - Format yang didukung: JPG, JPEG, PNG, GIF
@@ -684,15 +746,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 **Request Body (Form Data):**
 ```
-namaToko: "Toko Sembako Jaya Updated" (optional)
-domisili: "Jakarta Selatan" (optional)
-jenisUsaha: "Sembako & Makanan" (optional)
-nomorIzinUsaha: "987654321" (optional)
-alamatUsaha: "Jl. Raya Jakarta No. 456" (optional)
-whatsapp: "081234567899" (optional)
-facebook: "tokosembakojaya" (optional)
-instagram: "tokosembakojaya" (optional)
-fotoProfil: [file upload] (optional)
+namaToko: "Toko Sembako Jaya Updated" 
+domisili: "Jakarta Selatan" 
+jenisUsaha: "Sembako & Makanan" 
+nomorIzinUsaha: "987654321"
+alamatUsaha: "Jl. Raya Jakarta No. 456" 
+whatsapp: "081234567899" 
+facebook: "tokosembakojaya" 
+instagram: "tokosembakojaya" 
+fotoProfil: [file upload]
 ```
 
 **Success Response (200):**

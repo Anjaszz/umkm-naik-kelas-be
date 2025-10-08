@@ -166,12 +166,12 @@ const forgotPassword = async (req, res, next) => {
   }
 };
 
-// @desc    Reset Password with OTP
-// @route   POST /api/auth/reset-password
+// @desc    Verify OTP for reset password
+// @route   POST /api/auth/verify-otp
 // @access  Public
-const resetPassword = async (req, res, next) => {
+const verifyOTP = async (req, res, next) => {
   try {
-    const { email, otp, newPassword } = req.body;
+    const { email, otp } = req.body;
 
     const user = await User.findOne({ email });
 
@@ -187,6 +187,50 @@ const resetPassword = async (req, res, next) => {
       return res.status(400).json({
         success: false,
         message: 'OTP tidak valid atau sudah expired'
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'OTP valid. Silakan buat password baru',
+      data: {
+        email: user.email
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Reset Password (setelah OTP terverifikasi)
+// @route   POST /api/auth/reset-password
+// @access  Public
+const resetPassword = async (req, res, next) => {
+  try {
+    const { email, newPassword } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User tidak ditemukan'
+      });
+    }
+
+    // Check if OTP exists and still valid (untuk memastikan user sudah verify OTP)
+    if (!user.otp || !user.otpExpiry) {
+      return res.status(400).json({
+        success: false,
+        message: 'Silakan verifikasi OTP terlebih dahulu'
+      });
+    }
+
+    // Check if OTP expired
+    if (user.otpExpiry < Date.now()) {
+      return res.status(400).json({
+        success: false,
+        message: 'OTP sudah expired. Silakan request OTP baru'
       });
     }
 
@@ -299,6 +343,7 @@ module.exports = {
   registerBuyer,
   registerSeller,
   forgotPassword,
+  verifyOTP,
   resetPassword,
   login,
   getMe,
