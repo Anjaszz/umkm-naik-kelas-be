@@ -30,7 +30,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files dari folder uploads
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Di cPanel: /home/username/public_html/uploads
+const uploadDir = process.env.UPLOAD_PATH || path.join(__dirname, '../public_html/uploads');
+app.use('/uploads', express.static(uploadDir));
 
 // Routes
 // PENTING: Semua routes sudah menggunakan prefix /api
@@ -82,7 +84,7 @@ app.use('*', (req, res) => {
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-const HOST = '0.0.0.0';
+const HOST = process.env.HOST || '127.0.0.1';
 
 // Listen - di cPanel shared hosting, gunakan 127.0.0.1 atau localhost
 app.listen(PORT, HOST, () => {

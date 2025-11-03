@@ -5,9 +5,9 @@ const Category = require('../models/Category');
 const categories = [
   'Makanan',
   'Minuman',
-  'Fashion & Pakaian',
-  'Kerajian Tangan',
-  'Produk Kecantikan & Perawatan Diri '
+  'Manisan',
+  'Bumbu',
+  'Lainnya'
 ];
 
 const seedCategories = async () => {

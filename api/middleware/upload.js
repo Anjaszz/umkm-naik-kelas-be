@@ -2,8 +2,10 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Pastikan folder uploads ada
-const uploadDir = path.join(__dirname, '../uploads');
+// Path ke public_html/uploads
+// Di cPanel: /home/username/public_html/uploads
+// Di local dev: akan membuat folder uploads di root project
+const uploadDir = process.env.UPLOAD_PATH || path.join(__dirname, '../../public_html/uploads');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }

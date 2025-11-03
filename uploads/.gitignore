@@ -1,0 +1,8 @@
+# Ignore all files in uploads folder
+*
+
+# But keep the .gitignore file itself
+!.gitignore
+
+# And keep the .htaccess file
+!.htaccess

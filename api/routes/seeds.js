@@ -3,11 +3,16 @@ const mongoose = require('mongoose');
 const Category = require('../models/Category');
 
 const categories = [
-  'Makanan',
-  'Minuman',
-  'Fashion & Pakaian',
-  'Kerajian Tangan',
-  'Produk Kecantikan & Perawatan Diri '
+  { nama: 'Makanan & Minuman', icon: '🍔' },
+  { nama: 'Fashion & Pakaian', icon: '👕' },
+  { nama: 'Kerajinan Tangan', icon: '🎨' },
+  { nama: 'Kecantikan & Kesehatan', icon: '💄' },
+  { nama: 'Elektronik & Aksesoris', icon: '📱' },
+  { nama: 'Perlengkapan Rumah Tangga', icon: '🏠' },
+  { nama: 'Tanaman & Pertanian', icon: '🌱' },
+  { nama: 'Jasa & Layanan', icon: '🛠️' },
+  { nama: 'Mainan & Hobi', icon: '🎮' },
+  { nama: 'Lainnya', icon: '📦' }
 ];
 
 const seedCategories = async () => {
@@ -24,17 +29,15 @@ const seedCategories = async () => {
     await Category.deleteMany({});
     console.log('🗑️  Old categories deleted');
 
-    // Insert categories one by one to trigger pre-save hook
-    for (const nama of categories) {
-      await Category.create({ nama });
-    }
+    // Insert new categories
+    await Category.insertMany(categories);
     console.log('✅ Categories seeded successfully!');
 
     // Display categories
     const allCategories = await Category.find();
     console.log('\n📋 Available Categories:');
     allCategories.forEach((cat, index) => {
-      console.log(`${index + 1}. ${cat.nama} (${cat.slug})`);
+      console.log(`${index + 1}. ${cat.icon} ${cat.nama} (${cat.slug})`);
     });
 
     process.exit(0);

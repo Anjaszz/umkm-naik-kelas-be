@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -28,9 +27,6 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Serve static files dari folder uploads
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 // PENTING: Semua routes sudah menggunakan prefix /api

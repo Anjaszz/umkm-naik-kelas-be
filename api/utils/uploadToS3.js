@@ -43,7 +43,8 @@ const deleteFromS3 = async (fileUrl) => {
     const baseUrl = process.env.BASE_URL || 'http://localhost:5000';
     const filename = fileUrl.replace(`${baseUrl}/uploads/`, '');
 
-    const filePath = path.join(__dirname, '../uploads', filename);
+    const uploadDir = process.env.UPLOAD_PATH || path.join(__dirname, '../../public_html/uploads');
+    const filePath = path.join(uploadDir, filename);
 
     // Check if file exists
     if (fs.existsSync(filePath)) {
